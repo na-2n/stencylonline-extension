@@ -1,0 +1,6 @@
+name=Stencyl Online
+description=Simple multiplayer functionality
+author=Yui
+website=https://yui.pet/stencylonline-extension
+version=1.0
+compatibility=all

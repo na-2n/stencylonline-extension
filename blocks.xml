@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<palette>
+
+    <block
+        tag="bind-socket"
+        spec="connect to %0 on port %1"
+        code="StencylOnline.connectSocket(~, ~);"
+        type="action"
+        returns="void"
+    >
+        <fields>
+            <text order="0" />
+            <number order="1" />
+        </fields>
+    </block>
+    <block
+        tag="is-connected"
+        spec="connected to server?"
+        code="StencylOnline.client.connected"
+        type="normal"
+        returns="boolean"
+    >
+    </block>
+    <block
+        tag="send-pos"
+        spec="send position (x: %0 y: %1)"
+        code="StencylOnline.sendPos(~, ~);"
+        type="action"
+        returns="void"
+    >
+        <fields>
+            <number order="0" />
+            <number order="1" />
+        </fields>
+    </block>
+    <block
+        tag="set-actor-type"
+        spec="use actor type %0 for new players"
+        code="StencylOnline.actorType = ~;"
+        type="action"
+        returns="void"
+    >
+        <fields>
+            <actortype order="0" />
+        </fields>
+    </block>
+    <block
+        tag="on-connect"
+        spec="on connect"
+        code="StencylOnline.onConnect = function(){~};"
+        type="wrapper"
+        returns="void"
+    >
+        <fields>
+            <code-block order="0" />
+        </fields>
+    </block>
+    <block
+        tag="process-updates"
+        spec="process updates"
+        code="StencylOnline.update();"
+        type="action"
+        returns="void"
+    />
+</palette>

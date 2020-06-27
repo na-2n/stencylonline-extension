@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+    <haxeflag name="--macro" value="hx.concurrent.internal.Macros.addDefines()" />
+    <!--<haxelib name="haxe-concurrent" />-->
+</project>
