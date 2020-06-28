@@ -53,7 +53,8 @@ class Packet implements IPacket {
         final b = Bytes.alloc(PacketHeader.SIZE_CLIENT + this.length);
 
         final pos = this.header.writeTo(b);
-        b.blit(pos + PacketHeader.SIZE_CLIENT, this.data, 0, this.length);
+
+        b.blit(pos, this.data, 0, this.length);
 
         return b;
     }

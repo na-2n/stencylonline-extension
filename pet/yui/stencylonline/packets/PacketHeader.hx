@@ -19,7 +19,7 @@ class PacketHeader implements IHasWriteTo {
     function get_playerId(): Int
         return this._playerId;
 
-    public function new(length: Int = 0, id: Int = 0) {
+    public function new(id: Int = 0, length: Int = 0) {
         this.length = length;
         this.packetId = id;
     }
