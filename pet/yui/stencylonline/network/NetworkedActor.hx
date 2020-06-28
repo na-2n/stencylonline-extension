@@ -19,6 +19,14 @@ class NetworkedActor {
     function get_actor(): Actor
         return this._actor;
 
+    public var x(get, never): Float;
+    function get_x(): Float
+        return this._x;
+
+    public var y(get, never): Float;
+    function get_y(): Float
+        return this._y;
+
     public function new(actorType: ActorType) {
         this._type = actorType;
         this._actor = Engine.engine.createActorOfType(actorType, this._x, this._y, this._layer);

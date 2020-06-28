@@ -13,17 +13,26 @@
             <number order="1" />
         </fields>
     </block>
+
+    <block
+        tag="process-updates"
+        spec="process updates"
+        code="StencylOnline.update();"
+        type="action"
+        returns="void"
+    />
+
     <block
         tag="is-connected"
         spec="connected to server?"
         code="StencylOnline.client.connected"
         type="normal"
         returns="boolean"
-    >
-    </block>
+    />
+
     <block
         tag="send-pos"
-        spec="send position (x: %0 y: %1)"
+        spec="send position ( x: %0 y: %1 )"
         code="StencylOnline.sendPos(~, ~);"
         type="action"
         returns="void"
@@ -33,6 +42,21 @@
             <number order="1" />
         </fields>
     </block>
+
+    <block
+        tag="send-spawn"
+        spec="spawn %2 ( x: %0 y: %1 )"
+        code="StencylOnline.sendSpawn(~, ~, ~);"
+        type="action"
+        returns="void"
+    >
+        <fields>
+            <number order="0" />
+            <number order="1" />
+            <text order="2" />
+        </fields>
+    </block>
+
     <block
         tag="set-actor-type"
         spec="use actor type %0 for new players"
@@ -44,10 +68,59 @@
             <actortype order="0" />
         </fields>
     </block>
+
+    <block
+        tag="actor-object-type"
+        spec="actor object type name"
+        code="objectType"
+        type="normal"
+        returns="text"
+        hidden="true"
+    />
+    <block
+        tag="spawner-actor"
+        spec="spawner"
+        code="spawner"
+        type="normal"
+        returns="actor"
+        hidden="true"
+    />
+    <block
+        tag="coord-x"
+        spec="x"
+        code="x"
+        type="normal"
+        returns="number"
+        hidden="true"
+    />
+    <block
+        tag="coord-y"
+        spec="y"
+        code="y"
+        type="normal"
+        returns="number"
+        hidden="true"
+    />
+    <block
+        tag="on-spawn"
+        spec="spawn %1 requested by %2 ( x: %3, y: %4 )"
+        code="StencylOnline.onSpawnRequest = (objectType: String, spawner: Actor, x: Float, y: Float) -> {~};"
+        type="wrapper"
+        returns="void"
+    >
+        <fields>
+            <code-block order="0" />
+            <attached-block order="1" tag="actor-object-type" />
+            <attached-block order="2" tag="spawner-actor" />
+            <attached-block order="3" tag="coord-x" />
+            <attached-block order="4" tag="coord-y" />
+        </fields>
+    </block>
+
     <block
         tag="on-connect"
         spec="on connect"
-        code="StencylOnline.onConnect = function(){~};"
+        code="StencylOnline.onConnect = () -> {~};"
         type="wrapper"
         returns="void"
     >
@@ -55,11 +128,5 @@
             <code-block order="0" />
         </fields>
     </block>
-    <block
-        tag="process-updates"
-        spec="process updates"
-        code="StencylOnline.update();"
-        type="action"
-        returns="void"
-    />
+
 </palette>

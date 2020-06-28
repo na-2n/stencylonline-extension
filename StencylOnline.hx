@@ -6,10 +6,14 @@ import pet.yui.stencylonline.GameClient;
 import pet.yui.stencylonline.common.Vector2;
 import pet.yui.stencylonline.packets.Packet;
 import pet.yui.stencylonline.packets.PacketId;
+import pet.yui.stencylonline.packets.SpawnPacketBody;
 import pet.yui.stencylonline.packets.PositionPacketBody;
 import pet.yui.stencylonline.network.NetworkedActor;
 
+import com.stencyl.models.Actor;
 import com.stencyl.models.actor.ActorType;
+
+typedef SpawnRequest = String->Actor->Float->Float -> Void;
 
 class StencylOnline {
     static final _actors = new Map<Int, NetworkedActor>();
@@ -19,7 +23,9 @@ class StencylOnline {
 
     public static final client = new GameClient();
     public static var actorType: Null<ActorType>;
-    public static var onConnect = function() {};
+
+    public static var onSpawnRequest: SpawnRequest = (objectType: String, actor: Actor, x: Float, y: Float) -> {};
+    public static var onConnect = () -> {};
 
     public static function connectSocket(hostname: String, port: Int = 8876) {
         client.connect(hostname, port);
@@ -62,6 +68,17 @@ class StencylOnline {
                     actor.setPosition(body.pos);
                 }
 
+            case PacketId.SPAWN:
+                final body = new SpawnPacketBody();
+
+                body.readFrom(pkt.data);
+
+                if (_actors.exists(id)) {
+                    final actor = _actors[id];
+
+                    onSpawnRequest(body.objectType, actor.actor, body.objectPos.x, body.objectPos.y);
+                }
+
             case _: // do nothing
         }
     }
@@ -83,6 +100,13 @@ class StencylOnline {
         _y = y;
 
         final body = new PositionPacketBody(new Vector2(x, y));
+        final pkt = Packet.fromBody(body);
+
+        client.send(pkt);
+    }
+
+    public static function sendSpawn(x: Float, y: Float, str: String) {
+        final body = new SpawnPacketBody(new Vector2(x, y), str);
         final pkt = Packet.fromBody(body);
 
         client.send(pkt);
