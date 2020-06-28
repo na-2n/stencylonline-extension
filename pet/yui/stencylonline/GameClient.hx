@@ -1,6 +1,5 @@
 package pet.yui.stencylonline;
 
-import sys.thread.Thread;
 import sys.net.Socket;
 import sys.net.Address;
 import sys.net.Host;
@@ -8,14 +7,8 @@ import sys.net.Host;
 import pet.yui.stencylonline.common.IHasBytes;
 import pet.yui.stencylonline.packets.Packet;
 import pet.yui.stencylonline.packets.PacketHeader;
-import pet.yui.stencylonline.event.IEvent;
-import pet.yui.stencylonline.event.AsyncEvent;
-
-import hx.concurrent.executor.Executor;
 
 class GameClient {
-    var _executor: Executor;
-    var _packetEvent: IEvent<Packet>;
     var _sock: Socket;
     var _connected: Bool;
 
@@ -48,21 +41,4 @@ class GameClient {
 
     public function send(d: IHasBytes)
         this._sock.output.write(d.toBytes());
-
-    public function startThread(executor: Executor) {
-        this._executor = executor;
-        this._packetEvent = new AsyncEvent<Packet>(this._executor);
-
-        this._sock.setBlocking(true);
-
-        Thread.create(() -> {
-            while (true) {
-                this._packetEvent.emit(this.recv());
-            }
-        });
-    }
-
-    public function onPacket(cb: Packet -> Void)
-        this._packetEvent.on(cb);
-
 }
