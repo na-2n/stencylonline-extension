@@ -15,7 +15,6 @@ class PacketHeader implements IHasWriteTo {
     public var packetId: Int;
 
     public var playerId(get, never): Int;
-
     function get_playerId(): Int
         return this._playerId;
 
