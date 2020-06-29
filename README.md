@@ -2,6 +2,8 @@
 
 Stencyl engine extension providing easy networking.
 
+Also see [stencylonline-server](https://github.com/yuwui/stencylonline-server).
+
 ## License
 
 ### Noncommercial use
